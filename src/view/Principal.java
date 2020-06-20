@@ -40,11 +40,12 @@ public class Principal extends JFrame {
 	 */
 	public Principal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 561, 388);
+		setBounds(100, 100, 560, 390);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		this.setLocationRelativeTo(null);
 		
 		textoEmail = new JTextField();
 		textoEmail.setBounds(196, 132, 162, 20);
@@ -61,10 +62,17 @@ public class Principal extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblSenha = new JLabel("Senha");
-		lblSenha.setBounds(255, 180, 31, 14);
+		lblSenha.setBounds(255, 180, 41, 14);
 		contentPane.add(lblSenha);
 		
+
 		JButton logarBotao = new JButton("Logar");
+		logarBotao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new TelaCompra().setVisible(true);
+				dispose();
+			}
+		});
 		logarBotao.setBounds(233, 273, 89, 23);
 		contentPane.add(logarBotao);
 	}
