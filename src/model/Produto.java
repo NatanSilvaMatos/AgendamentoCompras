@@ -1,45 +1,54 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import javax.swing.JOptionPane;
 
-import controller.Estoque;
 
 public class Produto {
+	private String cnpjVendedor;
 	private String descricao;
 	private double valor;
-	private int quantidadeEstoque;
-	private int quantidadeCompra;
-	private Produto proximo;
-	private Produto anterior;
-	Estoque e = new Estoque();
-	
+	private int quantidade;
+
+
 	public Produto(){
-		e.abasteceEstoque();
-		proximo = null;
-		anterior = null;
+		//TODO: apagar trecho abaixo se for necessário
+		//		e.abasteceEstoque();
+		//		proximo = null;
+		//		anterior = null;
 	}
-	
-	public void cadastrarProduto(String nomeProduto, double valor, int quantidade) {
-		this.descricao = nomeProduto;
-		this.valor = valor;
-		this.quantidadeEstoque = quantidade;
+
+	public void cadastrarProduto(String cnpjVendedor, String nomeProduto, double valor, int quantidade) {
+		Produto novo = new Produto();
+		try {
+			FileWriter writer = new FileWriter("Produto.txt", true);
+			BufferedWriter cadastro = new BufferedWriter(writer);
+			CharSequence cadeia =  cnpjVendedor + ";" + nomeProduto + ";" + valor + ";" + quantidade;
+			cadastro.append(cadeia);
+			cadastro.append("\n");
+
+			cadastro.close();
+
+			JOptionPane.showMessageDialog(null, "Produto cadastrado!", "Cadastro de Produto", JOptionPane.PLAIN_MESSAGE);
+		} catch (IOException e) {
+			System.err.format("IOException: %s%n", e);
+		}
+		novo.setDescricao(nomeProduto);
+		novo.setValor(valor);
+		novo.setQuantidade(quantidade);
 	}
-	
+
 	public void listarProduto() {
 		System.out.println("Produto = " + getDescricao() + "\nValor = " + getValor());
 	}
-	
-	public int listarQuantidade() {
-		int qtd = this.getQuantidadeEstoque();
-		return qtd;
-	}
-	
-	public int getQuantidadeCompra() {
-		return quantidadeCompra;
-	}
 
-	public void setQuantidadeCompra(int quantidadeCompra) {
-		this.quantidadeCompra = quantidadeCompra;
+	public int listarQuantidade() {
+		int qtd = this.getQuantidade();
+		return qtd;
 	}
 
 	public String getDescricao() {
@@ -58,49 +67,14 @@ public class Produto {
 		this.valor = valor;
 	}
 
-	public int getQuantidadeEstoque() {
-		return quantidadeEstoque;
+	public int getQuantidade() {
+		return this.quantidade;
 	}
 
-	public void setQuantidadeEstoque(int quantidadeEstoque) {
-		this.quantidadeEstoque = quantidadeEstoque;
+	public void setQuantidade(int quantidadeEstoque) {
+		this.quantidade = quantidadeEstoque;
 	}
 
-	public Produto getProximo() {
-		return proximo;
-	}
+}
 
-	public void setProximo(Produto proximo) {
-		this.proximo = proximo;
-	}
 
-	public Produto getAnterior() {
-		return anterior;
-	}
-
-	public void setAnterior(Produto anterior) {
-		this.anterior = anterior;
-	}
-	
-	public static void main(String[] args) {
-		int opc = 0; 
-		while (opc!=9)
-	        {
-	            opc = Integer.parseInt(JOptionPane.showInputDialog(" 1 - Cadastrar Produto \n 2 - Comprar \n 9 - Finalizar"));
-	            switch (opc)     
-	            {
-	                case 1: System.out.println("Cadastrar Produto");
-	                         break;
-	                case 2: System.out.println("opcao 2");;
-	                         break;
-	                case 3: System.out.println("compra");
-	                		break;
-	                case 9: JOptionPane.showMessageDialog(null,"FINALIZADO ");
-	                         break;
-	                default: JOptionPane.showMessageDialog(null,"OPÇÃO INVÁLIDA");
-	            }  
-	        }  
-	    } 
-	}
-	
-	
