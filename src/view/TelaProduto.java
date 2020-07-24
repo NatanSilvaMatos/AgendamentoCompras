@@ -59,7 +59,7 @@ public class TelaProduto extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaProduto frame = new TelaProduto("natan"); //TODO: LEMBRAR DE MUDAR ISSO AQUI
+					TelaProduto frame = new TelaProduto("natan"); 
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
